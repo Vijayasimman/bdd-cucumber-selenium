@@ -79,6 +79,11 @@ public class UpdateUserDetails extends BasePage {
 				lightningWebComponent.isLightningDatatableContentDisplayed());
 	}
 
+	@When("^user selects basic data option under example$")
+	public void user_selects_basic_data_option_under_example() {
+		lightningWebComponent.selectBasicDataTableUnderExample();
+	}
+
 	@When("^user selects data table with inline edit option under example$")
 	public void user_selects_data_table_with_inline_edit_option_under_example() {
 		lightningWebComponent.selectDataTableWithInlineEditUnderExample();
@@ -103,6 +108,50 @@ public class UpdateUserDetails extends BasePage {
 	public void label_in_row_3_is_updated() {
 		Assert.assertTrue("Label in row 3 is not updated as per user input",
 				lightningWebComponent.isLabelInDatatableRowContainsValue(3, "Larry Page"));
+	}
+
+	@When("^user edits website in row 3$")
+	public void user_edits_website_in_row_3() {
+		lightningWebComponent.updateWebsiteInDatatableRow(3, "https://google.com");
+	}
+
+	@Then("^website in row 3 is updated$")
+	public void website_in_row_3_is_updated() {
+		Assert.assertTrue("Website in row 3 is not updated as per user input",
+				lightningWebComponent.isWebsiteInDatatableRowContainsValue(3, "https://google.com"));
+	}
+
+	@When("^user edits phone in row 3$")
+	public void user_edits_phone_in_row_3() {
+		lightningWebComponent.updatePhoneInDatatableRow(3, "(555)-755-6575");
+	}
+
+	@Then("^phone in row 3 is updated$")
+	public void phone_in_row_3_is_updated() {
+		Assert.assertTrue("Phone in row 3 is not updated as per user input",
+				lightningWebComponent.isPhoneInDatatableRowContainsValue(3, "(555)-755-6575"));
+	}
+
+	@When("^user edits closeat in row 3$")
+	public void user_edits_closeat_in_row_3() {
+		lightningWebComponent.updateCloseAtInDatatableRow(3, "Sep 16, 2021", "12:57 PM");
+	}
+
+	@Then("^closeat in row 3 is updated$")
+	public void closeat_in_row_3_is_updated() {
+		Assert.assertTrue("CloseAt in row 3 is not updated as per user input",
+				lightningWebComponent.isDateInDatatableRowContainsValue(3, "Sep 16, 2021"));
+	}
+
+	@When("^user edits balance in row 3$")
+	public void user_edits_balance_in_row_3() {
+		lightningWebComponent.updateBalanceInDatatableRow(3, "770.54");
+	}
+
+	@Then("^balance in row 3 is updated$")
+	public void balance_in_row_3_is_updated() {
+		Assert.assertTrue("Balance in row 3 is not updated as per user input",
+				lightningWebComponent.isBalanceInDatatableRowContainsValue(3, "770.54"));
 	}
 
 	@After("@chrome")

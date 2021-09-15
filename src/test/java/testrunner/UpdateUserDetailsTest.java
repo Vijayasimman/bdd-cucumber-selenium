@@ -6,7 +6,7 @@ import io.cucumber.junit.CucumberOptions;
 import net.serenitybdd.cucumber.CucumberWithSerenity;
 
 @RunWith(CucumberWithSerenity.class)
-@CucumberOptions(features = "src/test/resources/features", glue = "stepdefinitions", tags = "@firefox")
+@CucumberOptions(features = "src/test/resources/features", glue = "stepdefinitions", tags = "@chrome")
 public class UpdateUserDetailsTest {
 
 }

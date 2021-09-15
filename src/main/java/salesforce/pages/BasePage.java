@@ -24,8 +24,8 @@ public class BasePage {
 				.until(ExpectedConditions.visibilityOfElementLocated(by));
 	}
 
-	public void waitForElementToBeInvisible(WebDriver driver, By by) {
-		new WebDriverWait(driver, Duration.ofSeconds(5)).ignoring(StaleElementReferenceException.class)
+	public void waitForElementToBeInvisible(WebDriver driver, By by, long timeinSec) {
+		new WebDriverWait(driver, Duration.ofSeconds(timeinSec)).ignoring(StaleElementReferenceException.class)
 				.until(ExpectedConditions.invisibilityOfElementLocated(by));
 	}
 
@@ -34,9 +34,14 @@ public class BasePage {
 				.until(ExpectedConditions.elementToBeClickable(by));
 	}
 
-	public void clickElementJs(WebDriver driver, By by) {
+	public void clickElementByJs(WebDriver driver, By by) {
 		JavascriptExecutor executor = (JavascriptExecutor) driver;
 		executor.executeScript("arguments[0].click();", driver.findElement(by));
+	}
+
+	public void clickElementByJs(WebDriver driver, WebElement element) {
+		JavascriptExecutor executor = (JavascriptExecutor) driver;
+		executor.executeScript("arguments[0].click();", element);
 	}
 
 	public void clickElement(WebDriver driver, By by) {
@@ -46,7 +51,7 @@ public class BasePage {
 		try {
 			driver.findElement(by).click();
 		} catch (Exception e) {
-			clickElementJs(driver, by);
+			clickElementByJs(driver, by);
 		}
 	}
 
@@ -130,14 +135,15 @@ public class BasePage {
 		}
 	}
 
-	public void switchToFrameWithName(WebDriver driver, String name) {
-		new WebDriverWait(driver, Duration.ofSeconds(30)).ignoring(StaleElementReferenceException.class)
-				.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(name));
+	public void switchToFrameByElement(WebDriver driver, WebElement element) {
+		new WebDriverWait(driver, Duration.ofSeconds(60)).ignoring(StaleElementReferenceException.class)
+				.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(element));
 	}
 
-	public void switchToFrameWithIndex(WebDriver driver, int index) {
-		new WebDriverWait(driver, Duration.ofSeconds(30)).ignoring(StaleElementReferenceException.class)
-				.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(index));
+	public String getCurrentFrameName(WebDriver driver) {
+		JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
+		String currentFrame = jsExecutor.executeScript("return window.name").toString();
+		return currentFrame;
 	}
 
 	public void mouseHoverOnElement(WebDriver driver, By by) {

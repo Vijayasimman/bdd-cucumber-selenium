@@ -16,7 +16,7 @@ public class HomePage extends BasePage {
 	public void goToSalesforceDevelopersPortal() {
 		driver.get("https://developer.salesforce.com/docs/component-library/documentation/en/48.0/lwc");
 		if (isDisplayed(driver, SORRY_TO_INTERRUPT_ERROR_MSG, 5)) {
-			driver.navigate().refresh();
+			driver.get(driver.getCurrentUrl());
 		}
 	}
 
